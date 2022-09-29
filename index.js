@@ -23,6 +23,8 @@ function genMonth(name, index) {
     } else {
         this.numDays = 31;
     }
+
+    if (this.name = 'February' && )
 }
 
 function genYear(year) {
@@ -53,6 +55,10 @@ function genYear(year) {
 
 
 
+}
+
+Year.prototype.isLeap = function () {
+    
 }
 
 const testYear = new genYear(2024);
