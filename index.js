@@ -7,19 +7,20 @@ function Year(year) {
     this.months = [];
 
     for (let monthIndex in monthNames) {
-        this.months.push(new Month(+monthIndex + 1))
+        this.months.push(new Month(+monthIndex + 1));
     }
 
+    // Generates the element to display (all months)
     this.genYearCalendar = function () {
         const mainElement = document.createElement('div');
-        console.log(mainElement);
-        document.body.appendChild(mainElement);
+        mainElement.classList.toggle('main');
 
         for (let month of this.months) {
             const monthHeading = document.createElement('h2');
             monthHeading.textContent = month.name;
 
             const monthElement = document.createElement('p');
+            monthElement.classList.toggle('month');
             monthElement.appendChild(monthHeading);
             mainElement.appendChild(monthElement);
 
@@ -68,7 +69,12 @@ function Month(index) {
     }
 }
 
+
 Month.prototype = new Year(2024);
+Month.prototype.monthName = function () {
+    return this.name;
+};
+
 
 function Day(name, index) {
     this.name = name;
@@ -83,6 +89,12 @@ function Day(name, index) {
 }
 
 
+Day.prototype = new Month(2);
+const testDay = new Day('Monday', 4);
+console.table(testDay);
+console.log(testDay.monthName());
+
+
 
 const testYear = new Year(2024);
 
@@ -92,8 +104,8 @@ const testYear = new Year(2024);
 
 
 
-console.log(testYear.isLeap());
-console.table(testYear.months);
+// console.log(testYear.isLeap());
+// console.table(testYear.months);
 
 const testMonth = new Month(3);
 console.log(testMonth.numDays);
