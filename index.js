@@ -2,22 +2,41 @@
 const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-
-
-
-
 function Year(year) {
     this.year = year;
     this.months = [];
 
+    for (let monthIndex in monthNames) {
+        this.months.push(new Month(+monthIndex + 1))
+    }
+
+    this.genYearCalendar = function () {
+        const mainElement = document.createElement('div');
+        console.log(mainElement);
+        document.body.appendChild(mainElement);
+
+        for (let month of this.months) {
+            const monthHeading = document.createElement('h2');
+            monthHeading.textContent = month.name;
+
+            const monthElement = document.createElement('p');
+            monthElement.appendChild(monthHeading);
+            mainElement.appendChild(monthElement);
+
+            // mainElement = document.createElement('div');
+            
+        }
+
+        document.body.appendChild(mainElement);
+        
+
+    }
     // populate months array with month objects
     // let i = 1;
     // for (let monthName of monthNames) {
     //     this.months.push(new Month(monthName, i));
     //     i++;
     // };
-
-
 }
 
 Year.prototype.isLeap = function () {
@@ -47,7 +66,6 @@ function Month(index) {
     } else if (this.index === 2) {
         this.numDays = 28;
     }
-    // if (this.name = 'February' && )
 }
 
 Month.prototype = new Year(2024);
@@ -67,12 +85,26 @@ function Day(name, index) {
 
 
 const testYear = new Year(2024);
-for (let monthIndex in monthNames) {
-    testYear.months.push(new Month(+monthIndex + 1))
-}
+
+// for (let monthIndex in monthNames) {
+//     testYear.months.push(new Month(+monthIndex + 1))
+// }
+
+
 
 console.log(testYear.isLeap());
 console.table(testYear.months);
 
 const testMonth = new Month(3);
 console.log(testMonth.numDays);
+
+const currentYear = new Date().getFullYear();
+const testYear2 = new Year(currentYear);
+testYear.genYearCalendar();
+// function genMonthCalendar(year) {
+//     const yearObj = new Year(year);
+//     for (let monthIndex in monthNames) {
+//         yearObj.months.push(new Month(monthIndex));
+//     }
+
+// }
